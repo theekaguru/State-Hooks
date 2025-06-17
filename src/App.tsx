@@ -12,9 +12,29 @@ function App() {
     {id: 2 , name:"Banana" , colour:"Yellow"}
 
   ])
+  const[fruitName, setFruitName] = useState<string>("")
+  const[fruitColor, setFruitColor] = useState<string>("")
 
   const RemoveFruit =(id:number)=>{
     setFruits(fruits.filter(fruit =>fruit.id!== id))
+
+    
+  }
+
+  const addFruit =()=>{
+    if(fruitName && fruitColor){
+    setFruits([
+      ...fruits,
+      {
+        id:Date.now(),
+        name:fruitName,
+        colour:fruitColor
+      }
+    ]);
+    setFruitName("")
+    setFruitColor("")
+  }
+  
   }
 
   return ( 
@@ -34,6 +54,19 @@ function App() {
           ))
         }
       </ul>
+      <input type='text'
+      placeholder='Fruit Name'
+      value={fruitName}
+      onChange={e=>setFruitName(e.target.value)}
+      style  ={{marginRight:8 , padding: 6}}
+      />
+       <input type='text'
+      placeholder='Fruit Color'
+      value={fruitColor}
+      onChange={e=>setFruitColor(e.target.value)}
+      style  ={{marginRight:8 , padding: 6}}
+      />
+      <button onClick={addFruit}>Add Fruit</button>
     </div>
     </>
   )
